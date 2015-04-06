@@ -1,14 +1,16 @@
 require 'nokogiri'
-require 'open-url'
+require 'open-uri'
 
-class weblink
-	def initialize :linkname
+class Weblink
+	def initialize(linkname)
 		@baseurl = linkname
 	end
 
 	def spider
+		puts @baseurl
 	end
 end
 
 
+Weblink.new("www.baidu.com").spider
 
