@@ -3,14 +3,22 @@ require 'open-uri'
 
 class Weblink
 	def initialize(linkname)
-		@baseurl = linkname
+        @doc = Nokogiri::HTML(open(linkname))
+        @ofile = File.open("href.txt", "w")
 	end
 
-	def spider
-		puts @baseurl
+	def savehref 
+        @doc.xpath('//a[@href]').each do |link|
+           single = link['href'].to_s
+           @ofile.puts single if single.include?('http')
+        end
 	end
+
+    def spider
+        savehref
+    end
 end
 
 
-Weblink.new("www.baidu.com").spider
+Weblink.new("http://www.baidu.com").spider
 
